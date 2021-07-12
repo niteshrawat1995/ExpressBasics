@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 
 const logger = require("./middlewares/logger")
@@ -29,6 +30,7 @@ app.use(express.urlencoded({extended: false}));
 app.get("/", (req, res) => res.send("Hello world!!"))
 app.use("/api/members", require("./routes/api/members"))
 app.use("/api/users", require("./routes/api/users"))
+app.use("/api/auth", require("./routes/api/auth"))
 
 // mongoose sandbox
 app.get("/add-user", async(req, res) => {

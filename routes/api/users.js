@@ -2,17 +2,18 @@ const express = require("express")
 const mongodb = require("mongodb")
 
 const User = require("../../models/user.model")
+const auth = require("../../middlewares/auth")
 
 const router = new express.Router()
 const ObjectID = mongodb.ObjectID
 
-router.get("/", async(req, res) => {
-    const users = await User.find({})
+router.get("/", auth, async(req, res) => {
+    const users = await User.find({name: req.user.name})
     return res.json(users)
 })
 
 router.post("/", async(req, res) => {
-    const user = new User(...req.body)
+    const user = new User(req.body)
     try{
         dbUser = await user.save()
         return res.json(dbUser)
