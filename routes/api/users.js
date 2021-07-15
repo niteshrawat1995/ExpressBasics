@@ -7,8 +7,8 @@ const auth = require("../../middlewares/auth")
 const router = new express.Router()
 const ObjectID = mongodb.ObjectID
 
-router.get("/", auth, async(req, res) => {
-    const users = await User.find({name: req.user.name})
+router.get("/", async(req, res) => {
+    const users = await User.find()
     return res.json(users)
 })
 
